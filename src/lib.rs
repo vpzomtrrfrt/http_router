@@ -178,7 +178,7 @@ macro_rules! router {
     }};
 
     // call handler with params
-    (@call_pure $context:expr, $handler:ident, $params:expr, $({$id:ident : $ty:ty : $idx:expr}),*) => {{
+    (@call_pure $context:expr, $handler:expr, $params:expr, $({$id:ident : $ty:ty : $idx:expr}),*) => {{
         $handler(&$context, $({
             let value = $params[$idx];
             router!(@parse_type value, $ty)
@@ -186,47 +186,47 @@ macro_rules! router {
     }};
 
     // Extract params from route, 0 params case
-    (@call, $context:expr, $handler:ident, $params:expr, $($p:ident)*) => {{
+    (@call, $context:expr, $handler:expr, $params:expr, $($p:ident)*) => {{
         $handler(&$context)
     }};
 
     // Extract params from route, 1 params case
-    (@call, $context:expr, $handler:ident, $params:expr, $($p:ident)* {$id1:ident : $ty1:ty} $($p1:ident)*) => {{
+    (@call, $context:expr, $handler:expr, $params:expr, $($p:ident)* {$id1:ident : $ty1:ty} $($p1:ident)*) => {{
         router!(@call_pure $context, $handler, $params, {$id1 : $ty1 : 0})
     }};
 
     // Extract params from route, 2 params case
-    (@call, $context:expr, $handler:ident, $params:expr, $($p:ident)* {$id1:ident : $ty1:ty} $($p1:ident)* {$id2:ident : $ty2:ty} $($p2:ident)*) => {{
+    (@call, $context:expr, $handler:expr, $params:expr, $($p:ident)* {$id1:ident : $ty1:ty} $($p1:ident)* {$id2:ident : $ty2:ty} $($p2:ident)*) => {{
         router!(@call_pure $context, $handler, $params, {$id1 : $ty1 : 0}, {$id2 : $ty2 : 1})
     }};
 
     // Extract params from route, 3 params case
-    (@call, $context:expr, $handler:ident, $params:expr, $($p:ident)* {$id1:ident : $ty1:ty} $($p1:ident)* {$id2:ident : $ty2:ty} $($p2:ident)* {$id3:ident : $ty3:ty} $($p3:ident)*) => {{
+    (@call, $context:expr, $handler:expr, $params:expr, $($p:ident)* {$id1:ident : $ty1:ty} $($p1:ident)* {$id2:ident : $ty2:ty} $($p2:ident)* {$id3:ident : $ty3:ty} $($p3:ident)*) => {{
         router!(@call_pure $context, $handler, $params, {$id1 : $ty1 : 0}, {$id2 : $ty2 : 1}, {$id3 : $ty3 : 2})
     }};
 
     // Extract params from route, 4 params case
-    (@call, $context:expr, $handler:ident, $params:expr, $($p:ident)* {$id1:ident : $ty1:ty} $($p1:ident)* {$id2:ident : $ty2:ty} $($p2:ident)* {$id3:ident : $ty3:ty} $($p3:ident)* {$id4:ident : $ty4:ty} $($p4:ident)*) => {{
+    (@call, $context:expr, $handler:expr, $params:expr, $($p:ident)* {$id1:ident : $ty1:ty} $($p1:ident)* {$id2:ident : $ty2:ty} $($p2:ident)* {$id3:ident : $ty3:ty} $($p3:ident)* {$id4:ident : $ty4:ty} $($p4:ident)*) => {{
         router!(@call_pure $context, $handler, $params, {$id1 : $ty1 : 0}, {$id2 : $ty2 : 1}, {$id3 : $ty3 : 2}, {$id4 : $ty4 : 3})
     }};
 
     // Extract params from route, 5 params case
-    (@call, $context:expr, $handler:ident, $params:expr, $($p:ident)* {$id1:ident : $ty1:ty} $($p1:ident)* {$id2:ident : $ty2:ty} $($p2:ident)* {$id3:ident : $ty3:ty} $($p3:ident)* {$id4:ident : $ty4:ty} $($p4:ident)* {$id5:ident : $ty5:ty} $($p5:ident)*) => {{
+    (@call, $context:expr, $handler:expr, $params:expr, $($p:ident)* {$id1:ident : $ty1:ty} $($p1:ident)* {$id2:ident : $ty2:ty} $($p2:ident)* {$id3:ident : $ty3:ty} $($p3:ident)* {$id4:ident : $ty4:ty} $($p4:ident)* {$id5:ident : $ty5:ty} $($p5:ident)*) => {{
         router!(@call_pure $context, $handler, $params, {$id1 : $ty1 : 0}, {$id2 : $ty2 : 1}, {$id3 : $ty3 : 2}, {$id4 : $ty4 : 3}, {$id5 : $ty5 : 4})
     }};
 
     // Extract params from route, 6 params case
-    (@call, $context:expr, $handler:ident, $params:expr, $($p:ident)* {$id1:ident : $ty1:ty} $($p1:ident)* {$id2:ident : $ty2:ty} $($p2:ident)* {$id3:ident : $ty3:ty} $($p3:ident)* {$id4:ident : $ty4:ty} $($p4:ident)* {$id5:ident : $ty5:ty} $($p5:ident)* {$id6:ident : $ty6:ty} $($p6:ident)*) => {{
+    (@call, $context:expr, $handler:expr, $params:expr, $($p:ident)* {$id1:ident : $ty1:ty} $($p1:ident)* {$id2:ident : $ty2:ty} $($p2:ident)* {$id3:ident : $ty3:ty} $($p3:ident)* {$id4:ident : $ty4:ty} $($p4:ident)* {$id5:ident : $ty5:ty} $($p5:ident)* {$id6:ident : $ty6:ty} $($p6:ident)*) => {{
         router!(@call_pure $context, $handler, $params, {$id1 : $ty1 : 0}, {$id2 : $ty2 : 1}, {$id3 : $ty3 : 2}, {$id4 : $ty4 : 3}, {$id5 : $ty5 : 4}, {$id6 : $ty6 : 5})
     }};
 
     // Extract params from route, 7 params case
-    (@call, $context:expr, $handler:ident, $params:expr, $($p:ident)* {$id1:ident : $ty1:ty} $($p1:ident)* {$id2:ident : $ty2:ty} $($p2:ident)* {$id3:ident : $ty3:ty} $($p3:ident)* {$id4:ident : $ty4:ty} $($p4:ident)* {$id5:ident : $ty5:ty} $($p5:ident)* {$id6:ident : $ty6:ty} $($p6:ident)* {$id7:ident : $ty7:ty} $($p7:ident)*) => {{
+    (@call, $context:expr, $handler:expr, $params:expr, $($p:ident)* {$id1:ident : $ty1:ty} $($p1:ident)* {$id2:ident : $ty2:ty} $($p2:ident)* {$id3:ident : $ty3:ty} $($p3:ident)* {$id4:ident : $ty4:ty} $($p4:ident)* {$id5:ident : $ty5:ty} $($p5:ident)* {$id6:ident : $ty6:ty} $($p6:ident)* {$id7:ident : $ty7:ty} $($p7:ident)*) => {{
         router!(@call_pure $context, $handler, $params, {$id1 : $ty1 : 0}, {$id2 : $ty2 : 1}, {$id3 : $ty3 : 2}, {$id4 : $ty4 : 3}, {$id5 : $ty5 : 4}, {$id6 : $ty6 : 5}, {$id6 : $ty6 : 6})
     }};
 
     // Test a particular route for match and forward to @call if there is match
-    (@one_route_with_method $context:expr, $method:expr, $path:expr, $default:expr, $expected_method: expr, $handler:ident, $($path_segment:tt)*) => {{
+    (@one_route_with_method $context:expr, $method:expr, $path:expr, $default:expr, $expected_method: expr, $handler:expr, $($path_segment:tt)*) => {{
         if $method != $expected_method { return None };
         let mut s = "^".to_string();
         $(
@@ -251,48 +251,48 @@ macro_rules! router {
     }};
 
     // Transform GET token to Method::GET
-    (@one_route $context:expr, $method:expr, $path:expr, $default:expr, GET, $handler:ident, $($path_segment:tt)*) => {
+    (@one_route $context:expr, $method:expr, $path:expr, $default:expr, GET, $handler:expr, $($path_segment:tt)*) => {
         router!(@one_route_with_method $context, $method, $path, $default, $crate::Method::GET, $handler, $($path_segment)*)
     };
 
     // Transform POST token to Method::POST
-    (@one_route $context:expr, $method:expr, $path:expr, $default:expr, POST, $handler:ident, $($path_segment:tt)*) => {
+    (@one_route $context:expr, $method:expr, $path:expr, $default:expr, POST, $handler:expr, $($path_segment:tt)*) => {
         router!(@one_route_with_method $context, $method, $path, $default, $crate::Method::POST, $handler, $($path_segment)*)
     };
     // Transform PUT token to Method::PUT
-    (@one_route $context:expr, $method:expr, $path:expr, $default:expr, PUT, $handler:ident, $($path_segment:tt)*) => {
+    (@one_route $context:expr, $method:expr, $path:expr, $default:expr, PUT, $handler:expr, $($path_segment:tt)*) => {
         router!(@one_route_with_method $context, $method, $path, $default, $crate::Method::PUT, $handler, $($path_segment)*)
     };
     // Transform PATCH token to Method::PATCH
-    (@one_route $context:expr, $method:expr, $path:expr, $default:expr, PATCH, $handler:ident, $($path_segment:tt)*) => {
+    (@one_route $context:expr, $method:expr, $path:expr, $default:expr, PATCH, $handler:expr, $($path_segment:tt)*) => {
         router!(@one_route_with_method $context, $method, $path, $default, $crate::Method::PATCH, $handler, $($path_segment)*)
     };
     // Transform DELETE token to Method::DELETE
-    (@one_route $context:expr, $method:expr, $path:expr, $default:expr, DELETE, $handler:ident, $($path_segment:tt)*) => {
+    (@one_route $context:expr, $method:expr, $path:expr, $default:expr, DELETE, $handler:expr, $($path_segment:tt)*) => {
         router!(@one_route_with_method $context, $method, $path, $default, $crate::Method::DELETE, $handler, $($path_segment)*)
     };
     // Transform OPTIONS token to Method::OPTIONS
-    (@one_route $context:expr, $method:expr, $path:expr, $default:expr, OPTIONS, $handler:ident, $($path_segment:tt)*) => {
+    (@one_route $context:expr, $method:expr, $path:expr, $default:expr, OPTIONS, $handler:expr, $($path_segment:tt)*) => {
         router!(@one_route_with_method $context, $method, $path, $default, $crate::Method::OPTIONS, $handler, $($path_segment)*)
     };
 
     // Transform HEAD token to Method::HEAD
-    (@one_route $context:expr, $method:expr, $path:expr, $default:expr, HEAD, $handler:ident, $($path_segment:tt)*) => {
+    (@one_route $context:expr, $method:expr, $path:expr, $default:expr, HEAD, $handler:expr, $($path_segment:tt)*) => {
         router!(@one_route_with_method $context, $method, $path, $default, $crate::Method::HEAD, $handler, $($path_segment)*)
     };
 
     // Transform TRACE token to Method::TRACE
-    (@one_route $context:expr, $method:expr, $path:expr, $default:expr, TRACE, $handler:ident, $($path_segment:tt)*) => {
+    (@one_route $context:expr, $method:expr, $path:expr, $default:expr, TRACE, $handler:expr, $($path_segment:tt)*) => {
         router!(@one_route_with_method $context, $method, $path, $default, $crate::Method::TRACE, $handler, $($path_segment)*)
     };
 
     // Transform CONNECT token to Method::CONNECT
-    (@one_route $context:expr, $method:expr, $path:expr, $default:expr, CONNECT, $handler:ident, $($path_segment:tt)*) => {
+    (@one_route $context:expr, $method:expr, $path:expr, $default:expr, CONNECT, $handler:expr, $($path_segment:tt)*) => {
         router!(@one_route_with_method $context, $method, $path, $default, $crate::Method::CONNECT, $handler, $($path_segment)*)
     };
 
     // Entry pattern
-    ($($method_token:ident $(/$path_segment:tt)+ => $handler:ident,)* _ => $default:ident $(,)*) => {{
+    ($($method_token:ident $(/$path_segment:tt)+ => $handler:expr,)* _ => $default:ident $(,)*) => {{
         move |context, method: $crate::Method, path: &str| {
             let mut result = None;
             $(
@@ -309,7 +309,7 @@ macro_rules! router {
     }};
 
     // Entry pattern - with home first
-    ($home_method_token:ident / => $home_handler:ident, $($method_token:ident $(/$path_segment:tt)+ => $handler:ident,)* _ => $default:ident $(,)*) => {{
+    ($home_method_token:ident / => $home_handler:ident, $($method_token:ident $(/$path_segment:tt)+ => $handler:expr,)* _ => $default:ident $(,)*) => {{
         move |context, method: $crate::Method, path: &str| {
             let closure = || {
                 router!(@one_route context, method, path, $default, $home_method_token, $home_handler,)
